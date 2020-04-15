@@ -83,7 +83,8 @@ class BurgerBuilder extends Component
     {
         alert('Order success! We hope you come back soon!')
         this.setState({
-            ingredients: {
+            ingredients: [],
+            ingredientCounts: {
                 salad: 0,
                 bacon: 0,
                 cheese: 0,
