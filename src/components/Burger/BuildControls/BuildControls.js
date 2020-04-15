@@ -9,6 +9,7 @@ const controls = [
     { label: 'Bacon', type: 'bacon' },
     { label: 'Cheese', type: 'cheese' },
     { label: 'Beef', type: 'beef' },
+    { label: 'Veg Patty', type: 'vegpatty' }
 ]
 
 const BuildControls = ({ ingredientPrices, ingredientAdded, ingredientRemoved, disabled, purchaseable, price, ordered }) => (

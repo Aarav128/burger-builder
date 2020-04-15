@@ -82,11 +82,20 @@
   
 
 .Beef {
-    width: 80%;
+    width: 90%;
     height: 8%;
     background: linear-gradient(#7f3608, #702e05);
     margin: 2% auto;
     border-radius: 15px;
+}
+
+.VegPatty {
+  width: 85%;
+  height: 8%;
+  background: linear-gradient(#654321, #5c4003);
+  margin: 2% auto;
+  border-radius: 15px;
+  border: 2px dotted black
 }
 
 .Cheese {
