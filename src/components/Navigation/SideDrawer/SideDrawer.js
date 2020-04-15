@@ -14,7 +14,6 @@ const compName = ({ closed, open }) =>
     {
         attachedClasses = [classes.SideDrawer, classes.Open]
     }
-    console.log(attachedClasses)
     return <Aux>
         <Backdrop show={open} clicked={closed} />
         <div className={attachedClasses.join(' ')}>
