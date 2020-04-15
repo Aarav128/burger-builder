@@ -10,7 +10,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 const INGREDIENT_PRICES = {
     salad: 0.5,
     cheese: 0.7,
-    meat: 1.3,
+    beef: 1.3,
     bacon: 0.7
 }
 
@@ -21,7 +21,7 @@ class BurgerBuilder extends Component
             salad: 0,
             bacon: 0,
             cheese: 0,
-            meat: 0
+            beef: 0
         },
         totalPrice: 4,
         purchaseable: false,
@@ -89,7 +89,7 @@ class BurgerBuilder extends Component
                 salad: 0,
                 bacon: 0,
                 cheese: 0,
-                meat: 0
+                beef: 0
             },
             totalPrice: 4,
             purchaseable: false,

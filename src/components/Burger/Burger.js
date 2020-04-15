@@ -20,7 +20,7 @@ const burger = ({ ingredients }) =>
         }, [])
     if (igList.length === 0)
     {
-        igList = <p>Please start adding ingredients!</p>
+        igList = <p>Build your Burger!</p>
     }
 
     return <div className={classes.Burger}>

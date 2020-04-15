@@ -8,7 +8,7 @@ const controls = [
     { label: 'Salad', type: 'salad' },
     { label: 'Bacon', type: 'bacon' },
     { label: 'Cheese', type: 'cheese' },
-    { label: 'Beef', type: 'meat' },
+    { label: 'Beef', type: 'beef' },
 ]
 
 const BuildControls = ({ ingredientPrices, ingredientAdded, ingredientRemoved, disabled, purchaseable, price, ordered }) => (
