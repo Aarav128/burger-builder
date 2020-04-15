@@ -4,13 +4,13 @@ import Aux from '../../../hoc/Aux/Aux'
 
 import Button from '../../UI/Button/Button'
 
-const orderSummary = ({ ingredients, price, purchaseCanceled, purchaseContinued }) =>
+const orderSummary = ({ ingredientCounts, price, purchaseCanceled, purchaseContinued }) =>
 {
-    const ingredientSummary = Object.keys(ingredients)
+    const ingredientSummary = Object.keys(ingredientCounts)
         .map(igKey =>
         {
             return <li key={igKey}>
-                <span style={{ textTransform: 'capitalize' }}>{igKey}</span>: {ingredients[igKey]}
+                <span style={{ textTransform: 'capitalize' }}>{igKey}</span>: {ingredientCounts[igKey]}
             </li>
         })
     return (

@@ -12,17 +12,18 @@ const INGREDIENT_PRICES = {
     cheese: 0.7,
     beef: 1.3,
     bacon: 0.7,
-    vegpatty: 1.4
+    vegpatty: 1.7
 }
 
 class BurgerBuilder extends Component
 {
     state = {
-        ingredients: {
+        ingredients: [],
+        ingredientCounts: {
             salad: 0,
-            bacon: 0,
             cheese: 0,
             beef: 0,
+            bacon: 0,
             vegpatty: 0
         },
         totalPrice: 4,
@@ -32,44 +33,39 @@ class BurgerBuilder extends Component
 
     updatePurchaseState = (ingredients) =>
     {
-        const sum = Object.keys(ingredients)
-            .map(igKey => 
-            {
-                return ingredients[igKey]
-            })
-            .reduce((sum, el) => sum + el, 0)
-        this.setState({ purchaseable: sum > 0 })
+        this.setState({ purchaseable: ingredients.length > 0 })
     }
 
     addIngredientHandler = (type) =>
     {
-        const oldCount = this.state.ingredients[type]
-        const updatedCount = oldCount + 1
-        const updatedIngredients = { ...this.state.ingredients }
-        updatedIngredients[type] = updatedCount
-
         const priceAddition = INGREDIENT_PRICES[type]
         const oldPrice = this.state.totalPrice
         const newPrice = oldPrice + priceAddition
 
-        this.setState({ ingredients: updatedIngredients, totalPrice: newPrice })
+        const updatedIngredients = [...this.state.ingredients, type]
+
+        const updatedCounts = { ...this.state.ingredientCounts }
+        updatedCounts[type] += 1
+
+        this.setState({ ingredients: updatedIngredients, totalPrice: newPrice, ingredientCounts: updatedCounts })
         this.updatePurchaseState(updatedIngredients)
     }
 
     removeIngredientHandler = (type) =>
     {
-        const oldCount = this.state.ingredients[type]
-        if (oldCount <= 0) return
-        const updatedCount = oldCount - 1
-        const updatedIngredients = { ...this.state.ingredients }
-        updatedIngredients[type] = updatedCount
-
         const priceSubtraction = INGREDIENT_PRICES[type]
         console.log(priceSubtraction)
         const oldPrice = this.state.totalPrice
         const newPrice = oldPrice - priceSubtraction
 
-        this.setState({ ingredients: updatedIngredients, totalPrice: newPrice })
+        const updatedCounts = { ...this.state.ingredientCounts }
+        updatedCounts[type] -= 1
+
+        let updatedIngredients = [...this.state.ingredients]
+        let igToRemove = updatedIngredients.findIndex((ig) => ig === type)
+        updatedIngredients.splice(igToRemove, 1)
+
+        this.setState({ ingredients: updatedIngredients, totalPrice: newPrice, ingredientCounts: updatedCounts })
         this.updatePurchaseState(updatedIngredients)
     }
 
@@ -102,11 +98,12 @@ class BurgerBuilder extends Component
 
     render()
     {
-        const disabledInfo = { ...this.state.ingredients }
+        const disabledInfo = { ...this.state.ingredientCounts }
 
         for (let key in disabledInfo)
         {
             disabledInfo[key] = disabledInfo[key] <= 0
+            console.log(disabledInfo[key])
         }
         return <Aux>
             <Modal
@@ -114,7 +111,7 @@ class BurgerBuilder extends Component
                 modalClosed={this.purchaseCancelHandler}
             >
                 <OrderSummary
-                    ingredients={this.state.ingredients}
+                    ingredientCounts={this.state.ingredientCounts}
                     price={this.state.totalPrice}
                     purchaseCanceled={this.purchaseCancelHandler}
                     purchaseContinued={this.purchaseContinueHandler}
