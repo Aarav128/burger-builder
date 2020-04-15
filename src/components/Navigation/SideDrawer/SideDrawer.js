@@ -1,20 +1,20 @@
 import React from 'react'
 
-import classes from './Toolbar.css'
+import classes from './SideDrawer.css'
 
 import Logo from '../../Logo/Logo'
 import NavigationItems from '../NavigationItems/NavigationItems'
 
-const toolbar = props => (
-    <header className={classes.Toolbar}>
-        <div>MENU</div>
+const compName = props =>
+{
+    return <div className={classes.SideDrawer}>
         <div className={classes.Logo}>
             <Logo />
         </div>
         <nav>
             <NavigationItems />
         </nav>
-    </header>
-)
+    </div>
+}
 
-export default toolbar
+export default compName
