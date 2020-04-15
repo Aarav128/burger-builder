@@ -2,7 +2,9 @@ import React from 'react'
 
 import Aux from '../../../hoc/Aux'
 
-const orderSummary = ({ ingredients }) =>
+import Button from '../../UI/Button/Button'
+
+const orderSummary = ({ ingredients, purchaseCanceled, purchaseContinued }) =>
 {
     const ingredientSummary = Object.keys(ingredients)
         .map(igKey =>
@@ -19,6 +21,8 @@ const orderSummary = ({ ingredients }) =>
                 {ingredientSummary}
             </ul>
             <p>Continue to Checkout?</p>
+            <Button btnType="Danger" onClick={purchaseCanceled}>CANCEL</Button>
+            <Button btnType="Success" onClick={purchaseContinued}>CONTINUE</Button>
         </Aux>
     )
 }
