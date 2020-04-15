@@ -6,7 +6,7 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient'
 
 const burger = ({ ingredients }) =>
 {
-    const igList = Object.keys(ingredients)
+    let igList = Object.keys(ingredients)
         .map(igKey => 
         {
             return [...Array(ingredients[igKey])].map((_, i) => 
@@ -14,6 +14,15 @@ const burger = ({ ingredients }) =>
                 return <BurgerIngredient key={igKey + i} type={igKey} />
             })
         })
+        .reduce((arr, el) =>
+        {
+            return arr.concat(el)
+        }, [])
+    if (igList.length === 0)
+    {
+        igList = <p>Please start adding ingredients!</p>
+    }
+
     return <div className={classes.Burger}>
         <BurgerIngredient type='bread-top' />
         {igList}
