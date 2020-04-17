@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from '../../axios-orders'
 
 import Aux from '../../hoc/Aux/Aux'
 
@@ -9,9 +10,9 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
+    bacon: 0.7,
     cheese: 0.7,
     beef: 1.3,
-    bacon: 0.7,
     vegpatty: 1.7
 }
 
@@ -21,9 +22,9 @@ class BurgerBuilder extends Component
         ingredients: [],
         ingredientCounts: {
             salad: 0,
+            bacon: 0,
             cheese: 0,
             beef: 0,
-            bacon: 0,
             vegpatty: 0
         },
         totalPrice: 4,
@@ -81,20 +82,29 @@ class BurgerBuilder extends Component
 
     purchaseContinueHandler = () =>
     {
-        alert('Order success! We hope you come back soon!')
-        this.setState({
-            ingredients: [],
-            ingredientCounts: {
-                salad: 0,
-                bacon: 0,
-                cheese: 0,
-                beef: 0,
-                vegpatty: 0
+        // alert('Order success! We hope you come back soon!')
+        const order = {
+            ingredientCounts: this.state.ingredientCounts,
+            price: this.state.price,
+            customer: {
+                name: 'Aarav',
+                address:
+                {
+                    address1: '29 Butt Street',
+                    address2: 'Penthouse Floor',
+                    city: 'Butttropolis',
+                    state: 'California',
+                    country: 'United States',
+                    zipCode: '12345'
+                },
+                email: 'butt@butt.com'
             },
-            totalPrice: 4,
-            purchaseable: false,
-            purchasing: false
-        })
+            deliveryMethod: 'fastest'
+        }
+
+        axios.post('/orders.json', order)
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
     }
 
     render()
