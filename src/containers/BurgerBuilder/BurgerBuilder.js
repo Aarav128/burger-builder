@@ -11,10 +11,10 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
 
 const INGREDIENT_PRICES = {
-    salad: 0.5,
     bacon: 0.7,
-    cheese: 0.7,
     beef: 1.3,
+    cheese: 0.7,
+    salad: 0.5,
     vegpatty: 1.7
 }
 
@@ -63,6 +63,7 @@ class BurgerBuilder extends Component
         }
 
         this.setState({ ingredients, totalPrice, ingredientCounts })
+        this.updatePurchaseState(ingredients)
     }
 
     updatePurchaseState = (ingredients) =>
