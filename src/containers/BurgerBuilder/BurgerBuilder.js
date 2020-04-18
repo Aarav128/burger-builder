@@ -35,7 +35,34 @@ class BurgerBuilder extends Component
             .then(response => 
             {
                 this.setState({ ingredientCounts: response.data })
+                this.setBurgerState()
             })
+    }
+
+    setBurgerState = () =>
+    {
+        let ingredients = []
+        const ingredientCounts = { ...this.state.ingredientCounts }
+        const igKeys = Object.keys(ingredientCounts)
+        for (let i in igKeys)
+        {
+            const key = igKeys[i]
+            for (let j = 0; j < ingredientCounts[key]; j++)
+            {
+                ingredients.push(key)
+            }
+        }
+
+        let totalPrice = 4
+        for (let i in igKeys)
+        {
+            const key = igKeys[i]
+            const priceAddition = INGREDIENT_PRICES[key] * ingredientCounts[key]
+            console.log(priceAddition)
+            totalPrice += priceAddition
+        }
+
+        this.setState({ ingredients, totalPrice, ingredientCounts })
     }
 
     updatePurchaseState = (ingredients) =>
@@ -61,7 +88,6 @@ class BurgerBuilder extends Component
     removeIngredientHandler = (type) =>
     {
         const priceSubtraction = INGREDIENT_PRICES[type]
-        console.log(priceSubtraction)
         const oldPrice = this.state.totalPrice
         const newPrice = oldPrice - priceSubtraction
 
@@ -128,7 +154,6 @@ class BurgerBuilder extends Component
         for (let key in disabledInfo)
         {
             disabledInfo[key] = disabledInfo[key] <= 0
-            console.log(disabledInfo[key])
         }
 
 
