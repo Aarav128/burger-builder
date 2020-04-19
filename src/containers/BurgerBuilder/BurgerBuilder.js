@@ -9,6 +9,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
+import Button from '../../components/UI/Button/Button'
 
 const INGREDIENT_PRICES = {
     bacon: 0.7,
@@ -26,7 +27,8 @@ class BurgerBuilder extends Component
         totalPrice: 4,
         purchaseable: false,
         purchasing: false,
-        loading: false
+        loading: false,
+        error: false
     }
 
     componentDidMount() 
@@ -36,6 +38,10 @@ class BurgerBuilder extends Component
             {
                 this.setState({ ingredientCounts: response.data })
                 this.setBurgerState()
+            })
+            .catch(error =>
+            {
+                this.setState({ error: true })
             })
     }
 
@@ -159,7 +165,25 @@ class BurgerBuilder extends Component
 
 
         let orderSummary = null
-        let burger = <Spinner />
+        let burger = this.state.error ? (
+            <Aux>
+                <p style={{ textAlign: "center" }}>Ingredients can't be loaded.</p>
+                <Button style={{ color: "black", margin: 0 }} onClick={() =>
+                {
+                    this.setState({
+                        ingredientCounts:
+                        {
+                            bacon: 0,
+                            beef: 0,
+                            cheese: 0,
+                            salad: 0,
+                            vegpatty: 0
+                        }
+                    })
+                }}>Click here to start from scratch.</Button>
+            </Aux >
+        )
+            : <Spinner />
 
         if (this.state.ingredientCounts)
         {
