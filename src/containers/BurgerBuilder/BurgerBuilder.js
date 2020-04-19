@@ -64,7 +64,6 @@ class BurgerBuilder extends Component
         {
             const key = igKeys[i]
             const priceAddition = INGREDIENT_PRICES[key] * ingredientCounts[key]
-            console.log(priceAddition)
             totalPrice += priceAddition
         }
 
